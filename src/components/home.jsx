@@ -5,12 +5,6 @@ import { Col, Row } from "antd";
 class Home extends Component {
   state = {};
 
-  componentDidMount = () => {
-    fetch("https://reqres.in/api/users?page=2")
-      .then(response => response.json())
-      .then(data => console.log(data));
-  };
-
   render() {
     return (
       <div>
