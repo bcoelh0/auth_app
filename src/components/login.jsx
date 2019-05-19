@@ -11,7 +11,7 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        fetch("http://localhost:8080/api/login", {
+        fetch("https://authorization-api-rails.herokuapp.com/api/login", {
           method: "POST",
           headers: {
             Accept: "application/json",
