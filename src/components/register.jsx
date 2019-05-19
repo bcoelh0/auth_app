@@ -9,7 +9,7 @@ class Register extends React.Component {
       if (!err) {
         console.log("Received values of form: ", values);
 
-        fetch("https://authorization-api-rails.herokuapp.com/api/users", {
+        fetch("https://authentication-api-rails.herokuapp.com/api/users", {
           method: "POST",
           headers: {
             Accept: "application/json",

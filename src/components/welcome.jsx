@@ -9,7 +9,7 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch("https://authorization-api-rails.herokuapp.com/api/", {
+    fetch("https://authentication-api-rails.herokuapp.com/api/", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
