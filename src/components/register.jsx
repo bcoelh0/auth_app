@@ -8,6 +8,30 @@ class Register extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+
+        fetch("http://localhost:8080/api/users", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            password_confirmation: values.confirm
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (data["created_at"] != undefined) {
+              alert("Registered successfully");
+              window.location = "/login";
+            } else {
+              alert("Unable to register");
+            }
+          });
       }
     });
   };

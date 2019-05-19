@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
 
 class Home extends Component {
-  state = {};
-
   render() {
     return (
       <div>

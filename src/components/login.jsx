@@ -11,8 +11,6 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
-
         fetch("http://localhost:8080/api/login", {
           method: "POST",
           headers: {
@@ -27,8 +25,9 @@ class Login extends React.Component {
           .then(response => response.json())
           .then(data => {
             if (data["token"] != undefined) {
-              console.log(data);
               this.setState({ loggedin: true });
+              localStorage.setItem("authToken", data["token"]);
+              window.location = "/welcome";
             } else {
               alert("Unable to authenticate");
             }
@@ -40,72 +39,68 @@ class Login extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    if (this.state.loggedin) {
-      return <Redirect to="/" />;
-    } else {
-      return (
-        <div>
-          <Row>
-            <Col span={8} offset={8}>
-              <h1>Login!</h1>
-              <Form onSubmit={this.handleSubmit} className="login-form">
-                <Form.Item>
-                  {getFieldDecorator("email", {
-                    rules: [
-                      { required: true, message: "Please input your email!" }
-                    ]
-                  })(
-                    <Input
-                      prefix={
-                        <Icon
-                          type="user"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      placeholder="Email"
-                    />
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  {getFieldDecorator("password", {
-                    rules: [
-                      { required: true, message: "Please input your Password!" }
-                    ]
-                  })(
-                    <Input
-                      prefix={
-                        <Icon
-                          type="lock"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      type="password"
-                      placeholder="Password"
-                    />
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  {getFieldDecorator("remember", {
-                    valuePropName: "checked",
-                    initialValue: true
-                  })(<Checkbox>Remember me</Checkbox>)}
-                  <br />
-                  <br />
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="login-form-button"
-                  >
-                    Log in
-                  </Button>
-                  &nbsp;Or <Link to="/register">register now!</Link>
-                </Form.Item>
-              </Form>
-            </Col>
-          </Row>
-        </div>
-      );
-    }
+    return (
+      <div>
+        <Row>
+          <Col span={8} offset={8}>
+            <h1>Login!</h1>
+            <Form onSubmit={this.handleSubmit} className="login-form">
+              <Form.Item>
+                {getFieldDecorator("email", {
+                  rules: [
+                    { required: true, message: "Please input your email!" }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon
+                        type="user"
+                        style={{ color: "rgba(0,0,0,.25)" }}
+                      />
+                    }
+                    placeholder="Email"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item>
+                {getFieldDecorator("password", {
+                  rules: [
+                    { required: true, message: "Please input your Password!" }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon
+                        type="lock"
+                        style={{ color: "rgba(0,0,0,.25)" }}
+                      />
+                    }
+                    type="password"
+                    placeholder="Password"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item>
+                {getFieldDecorator("remember", {
+                  valuePropName: "checked",
+                  initialValue: true
+                })(<Checkbox>Remember me</Checkbox>)}
+                <br />
+                <br />
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  Log in
+                </Button>
+                &nbsp;Or <Link to="/register">register now!</Link>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
